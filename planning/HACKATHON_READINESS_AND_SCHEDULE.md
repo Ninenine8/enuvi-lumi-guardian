@@ -8,15 +8,16 @@
 - `official-rules(1).md` — explicitly a **WORKING DRAFT**, conflicting with the Welcome Guide (tracks; sponsor optionality). **Not authoritative**.
 - `technical-execution-requirements(1).md`, `disqualification-checklist(1).md`, `ai-usage-policy(1).md` — technical and integrity guidance; all defer to published rules.
 - Sponsor overviews: Zetaris / Meterless / Cursor / NVIDIA. Access instructions for some marked **TBC**.
+- **Organiser Discord response dated 1 October 2026** to participant `java110914`, from staff `izzy0AP`, shared as screenshots on 11 October: rules 4.2, 5.1, 5.2, 5.3, 6.3 explained (see [dated clarification note](ORGANISER_DISCORD_CLARIFICATION_2026-10-01.md)). This reply predates the announced postponement; the final published rules still govern.
 - `submission-requirements.md` — appears to contain a duplicate **Technical Execution Guide**, not a distinct submission policy.
 
-**Rule resolution:** check **current binding event-page Official Rules** in HackOS and track descriptions before selecting/submitting; record any changes. Until then, follow the **stricter Welcome Guide integration assumption**.
+**Rule resolution:** staff clarified that **Zetaris + Meterless integrations and development in Cursor are mandatory** and **NVIDIA is optional**. The dated reply also supports disclosing pre-existing v0.4 research while building the actual agent during the official window. Check **current binding event-page Official Rules** and updated tracks before submitting; do not mistake the older Discord reply for the final legal text.
 
 ## Track choice
 
 **Provisional primary track: Reasoning Architecture** (reliable decisions and actions from data, memory and reasoning).
 
-Alternative: **Wildcard [Tinkerer] — Bring Your Own Project**, which explicitly accepts existing work while judging new work. Before finalizing, confirm whether Reasoning Architecture permits declared prior design/test materials, and the exact distinction between existing designs and eligible new commits.
+Alternatives: **The Agent That Can Explain Why** and **Wildcard [Tinkerer] — Bring Your Own Project**. Staff confirmed (rule 4.2) clearly declared pre-existing components may be used, but the actual agent must be built in the window and only in-window work is judged. **Which main track is the best fit remains unresolved.** Confirm the published descriptions and any track-specific eligibility.
 
 Do **not** state “registered in Reasoning Architecture” until it is actually selected in HackOS.
 
@@ -24,12 +25,12 @@ Do **not** state “registered in Reasoning Architecture” until it is actually
 
 | Sponsor | Required?* | Proposed genuine job | Unknown to confirm |
 |---|---|---|---|
-| **Zetaris** | Welcome Guide: yes | Query **synthetic** trusted-contact metadata, evidence and permission records through Zetaris as a real data source, with provenance | Actual instance access, supported connectors/API, permissible free tier and sample fallback |
-| **Meterless** | Welcome Guide: yes | Implement/adapt a **small H-MEM memory store + retriever** with persistence, provenance and emitted retrieval/audit events; distinguish memory from verified authority | What satisfies sponsor integration/attribution: published reference architecture vs their actual engine/code |
-| **Cursor** | Welcome Guide: yes | IDE used during the eligible implementation and test commits | Hackathon team access instructions |
-| **NVIDIA** | Where useful | Optional Nemotron API for reasoning if credits and tests support it | Credits, model endpoint, costs, limits; **no mandatory GPU** |
+| **Zetaris** | **Yes** — organiser confirms | Query **synthetic** trusted-contact metadata, evidence and permission records through Zetaris as a real data source, with provenance | Actual instance access, supported connectors/API, permissible free tier and sample fallback |
+| **Meterless** | **Yes** — organiser confirms | Implement/adapt a **small H-MEM memory store + retriever** with persistence, provenance and emitted retrieval/audit events; distinguish memory from verified authority | What satisfies sponsor integration/attribution: published reference architecture vs their actual engine/code |
+| **Cursor** | **Yes** — organiser confirms | IDE used during the eligible implementation and test commits | Hackathon team access instructions |
+| **NVIDIA** | **Optional** — organiser confirms | Optional Nemotron API for reasoning if credits and tests support it | Credits, model endpoint, costs, limits; **no mandatory GPU** |
 
-*Some other provided materials say partner technology is optional. This conflict is unresolved; the published Official Rules govern. **Do not claim an integration until a real call and trace verify it.**
+*Source: organiser Discord response, 1 Oct 2026, quoting rules 5.1–5.3. Access details / final published rules may be updated. **Do not claim an integration until a real call and trace verify it.**
 
 ### Safety of the Zetaris plan
 
@@ -40,10 +41,12 @@ Even if Zetaris stores synthetic contact and permission facts, **memory retrieve
 - [x] Private GitHub repository created; prior v0.4 reference docs preserved.
 - [x] v0.5 *design* and proposed test matrix documented.
 - [ ] Examine current HackOS **track challenge statement** and binding Official Rules; select track.
-- [ ] Confirm what is expected for pre-existing concepts vs code; archive a dated declaration.
+- [x] Organiser confirmed existing components can be reused **if clearly declared**, while the agent itself must be built in-window (1 Oct staff reply).
+- [ ] Archive a dated declaration listing existing Guardian v0.4 components; check current binding rules for track-specific constraints.
 - [ ] Check sponsor access, API examples, actual integration expectations and available credits. Do not buy tools solely on speculation.
-- [ ] Install/test Cursor and local Python or JavaScript tooling; practice in a throwaway sandbox if desired, **not** as undisclosed contest implementation.
-- [ ] Attend/review sponsor sessions, especially the Zetaris/ Bright Data workshop recording. Guide lists Data Day **12 Oct 22:00 UTC = 13 Oct 06:00 SGT**; verify current calendar.
+- [x] Cursor and Git installed; GitHub repository cloned to local Cursor workspace.
+- [ ] Check local Python or JavaScript tooling; practice in a throwaway sandbox if desired, **not** as undisclosed contest implementation.
+- [ ] Attend/review sponsor setup workshop, particularly Zetaris + Cursor. Staff dated reply states **12 Oct 22:00 UTC = 13 Oct 06:00 SGT**; verify current calendar and seek a recording if inconvenient.
 - [ ] Keep synthetic scenario fixtures and permission rules clearly labelled as prior planning.
 
 ## Eligible build window — 22–27 October 2026
@@ -67,7 +70,7 @@ Actual development may be rearranged around work commitments. **Smallest working
 
 - 1–4 minute genuine demonstration video per Welcome Guide (some drafts recommend 2–3 minutes)
 - Slide deck: user/problem, workflow, architecture, tech, sponsor roles, impact and limitations
-- GitHub project with setup, usage, requirements, demonstration and tests
+- GitHub project with setup, usage, requirements, demonstration and tests. Organiser said **no public deployed URL required** if a runnable container with clear instructions is provided. **Private GitHub repository access for judges remains unconfirmed**; obtain explicit answer before submission.
 - Clear sponsor documentation (including `metadata.json` if the submission interface requires it)
 - Explicit description of the **pre-existing v0.4 work**, dates/provenance and precisely what was newly built
 - Logs/trace evidence tied to real runs, no hardcoded outputs, no secrets, synthetic data and honest limitations
