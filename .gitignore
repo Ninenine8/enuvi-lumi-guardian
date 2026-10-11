@@ -1,0 +1,27 @@
+# Credentials / sensitive material
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+secrets/
+credentials/
+
+# Local artifacts and dependencies
+.venv/
+venv/
+__pycache__/
+*.pyc
+node_modules/
+dist/
+build/
+.ipynb_checkpoints/
+.DS_Store
+
+# Run traces are generated locally unless deliberately reviewed
+logs/
+
+# Large original media / archives: preserve in offline handoff, not repo
+*.mp4
+*.m4a
+*.zip
