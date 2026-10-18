@@ -77,12 +77,27 @@ Store authorization separately from H-MEM. Never let Nemotron or memory mutate t
 5. Inspectable JSONL logs, clean-clone instructions, bounded retry/cost logic.
 6. Short demo video, slides, documented sponsor usage, submission and confirmation.
 
+## Verified from uploaded HackOS Submission Requirements — 18 October 2026
+
+This is a substantive new version of `Submission Requirements`, not the previously mislinked Technical Execution Guide. **The document explicitly defers to the event-page Official Rules if they disagree.**
+
+- **Mandatory sponsor technology:** Zetaris and Meterless must be integrated; Cursor must be used for development. NVIDIA is described as "Integrate wherever it contributes to your project, workflow or use case". Nemotron is useful and already API-tested, but do not incorrectly call NVIDIA the same mandatory integration as Zetaris/Meterless based on this document.
+- **Required submission:** 1–4 minute actual-workflow demo showing Zetaris and Meterless, slide deck covering problem, solution, workflow, stack, sponsor use, differentiation, visuals and future, **public GitHub repository** with runnable README, and sponsor technology explanation (Zetaris, Meterless, Cursor, NVIDIA).
+- **GitHub privacy:** Currently PRIVATE; leave it private during preparation. Before submission, review all tracked source/docs/history for sensitive information, replace real details with synthetic ones, verify no exposed credentials, and deliberately publish a clean repository. Do not assume a private repo with judge access is sufficient: this document requires PUBLIC.
+- **Pre-existing:** Clearly declare v0.4 documentation, 21 documented scenario assessments, pre-built data/materials; only work during the eligible build window is newly judged.
+- **Submission form:** Select exactly one primary track, confirm team/solo roster before creating first submission (team composition locks), declare pre-existing components; may update submission until deadline.
+- **Demo quality:** Show real runs, not canned answers; hide credentials. Repo must work from a clean clone, with sample inputs/outputs and authentic traces. `.env.example` with placeholders and sample mode recommended.
+- **UTC deadline:** 27 October 2026 23:45 UTC = **28 October 2026 07:45 SGT**, hard close. Target submit by evening of **27 October SGT**.
+- Judging: Impact 30, Technical 20, Innovation 15, Demo 15, Product/UX 10, Sponsor Tech 10.
+
+**Still to verify:** binding event-page Official Rules if contradictory; which track to enter; whether H-MEM reference-architecture implementation alone satisfies meaningful Meterless integration; exact platform upload details.
+
 ## Rule and submission checks still OPEN as of 18 October
 
-- Confirm the **binding** HackOS Official Rules / 'How the Week Runs' lesson. An organiser Discord note dated 1 Oct said Zetaris+Meterless+Cursor required and NVIDIA optional; the public GenAI Academy FAQ currently emphasizes Zetaris+Cursor and running on Nemotron (direct or Meterless). Do not assume the older answer supersedes the newer page or vice versa.
+- Compare any conflicting requirements with the **binding event-page Official Rules**. HackOS Submission Requirements now explicitly says Zetaris+Meterless integration and Cursor development are required, while NVIDIA contributes where appropriate. The older organiser response and public FAQ are secondary to binding Official Rules.
 - Confirm a genuine implementation based on the Meterless H-MEM reference guide satisfies Meterless's integration requirement; alternatively use official engine code if needed.
-- Confirm track and challenge fit (Reasoning Architecture vs explainability vs Wildcard), plus public/private source-repository access for judging.
-- Confirm exact submission fields, `metadata.json` requirements and final video specifications in HackOS.
+- Confirm track and challenge fit (Reasoning Architecture vs explainability vs Wildcard). **Repository PUBLIC requirement now resolved** by Submission Requirements; do not publish until reviewed.
+- Confirm exact submission fields, whether `metadata.json` is requested, and accepted video/slide upload formats in HackOS. The Submission Requirements document confirms a 1–4 minute demo video, slide deck, public GitHub repo, sponsor tech explanation and pre-existing work declaration.
 
 **Published event dates (subject to binding rules):** opens 22 Oct 2026 00:00 UTC = 22 Oct 08:00 SGT; closes 27 Oct 2026 23:45 UTC = 28 Oct 07:45 SGT. Internal goal: submit by the evening of 27 Oct Singapore time.
 
