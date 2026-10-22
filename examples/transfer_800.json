@@ -1,0 +1,10 @@
+{
+  "run_id": "demo-800-001",
+  "idempotency_key": "synthetic-payment-001",
+  "request_text": "Please send a simulated $800 to my verified daughter.",
+  "action": {
+    "type": "transfer",
+    "recipient_id": "daughter-verified",
+    "amount_cents": 80000
+  }
+}
