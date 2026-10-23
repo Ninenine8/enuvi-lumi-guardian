@@ -1,7 +1,7 @@
 """Zetaris-backed synthetic Guardian demo.
 
-Only a Zetaris SQL VIEW containing explicitly synthetic permission records is
-supported. This is an educational hackathon integration, NOT a real identity,
+A Zetaris SQL VIEW is the intended final source. Temporary inline synthetic
+SQL can be supplied via --sql-file while diagnosing VIEW creation. This is an educational hackathon integration, NOT a real identity,
 payment, or authorization service. Errors fail closed. No API keys are logged.
 """
 from __future__ import annotations
@@ -99,6 +99,7 @@ def main():
     ap.add_argument("--memory", default="examples/memory.json")
     ap.add_argument("--ledger", default="logs/zetaris_ledger.json")
     ap.add_argument("--trace", default="logs/zetaris_trace.jsonl")
+    ap.add_argument("--sql-file", help="Read-only synthetic SELECT file; for development only")
     ap.add_argument("--simulate", choices=["CONFIRMED", "PENDING", "TIMEOUT", "FAILED"],
                     default="PENDING")
     args = ap.parse_args()
@@ -109,9 +110,12 @@ def main():
     memories = json.loads(Path(args.memory).read_text(encoding="utf-8"))
     ledger_path = Path(args.ledger)
     ledger = json.loads(ledger_path.read_text(encoding="utf-8")) if ledger_path.exists() else {}
+    sql = Path(args.sql_file).read_text(encoding="utf-8").strip() if args.sql_file else DEFAULT_SQL
+    # The API helper refuses any command other than SELECT.
     result, ledger, events = run_with_zetaris(
-        request, token, ledger, memories, simulated_outcome=args.simulate
+        request, token, ledger, memories, simulated_outcome=args.simulate, sql=sql
     )
+    result["source_mode"] = "inline_sql_demo" if args.sql_file else "zetaris_view"
     ledger_path.parent.mkdir(parents=True, exist_ok=True)
     ledger_path.write_text(json.dumps(ledger, indent=2) + "\n", encoding="utf-8")
     trace_path = Path(args.trace)
