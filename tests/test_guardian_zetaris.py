@@ -23,7 +23,7 @@ class ZetarisAdapterTests(unittest.TestCase):
             mocked.return_value.__enter__.return_value.read.return_value = (
                 b'{"records":[{"seven":7}]}'
             )
-            result = query_zetaris("SELECT\\n  7 AS seven;", "synthetic-token")
+            result = query_zetaris("SELECT\n  7 AS seven;", "synthetic-token")
         self.assertEqual(result["records"][0]["seven"], 7)
         request = mocked.call_args.args[0]
         self.assertIn(b"SELECT\\n", request.data)
