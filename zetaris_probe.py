@@ -31,7 +31,7 @@ def query_zetaris(sql: str, token: str, url: str = DEFAULT_URL, org_id: str = "1
         raise ValueError("Probe allows read-only SELECT queries only")
     req = urllib.request.Request(
         url,
-        data=json.dumps({"sql": sql}).encode("utf-8"),
+        data=json.dumps({"select": sql, "pageLimit": 5}).encode("utf-8"),
         headers={
             "Authorization": "Bearer " + token,
             "X-Org-Id": org_id,
