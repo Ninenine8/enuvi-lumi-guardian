@@ -28,7 +28,7 @@ def query_zetaris(sql: str, token: str, url: str = DEFAULT_URL, org_id: str = "1
         raise ValueError("ZETARIS_API_TOKEN is missing")
     if not url.startswith(("http://127.0.0.1:", "http://localhost:")):
         raise ValueError("Probe only allows local Zetaris endpoint")
-    if not re.match(r"(?i)^SELECT\\s", sql.lstrip()) or ";" in sql.strip().rstrip(";"):
+    if not re.match(r"(?i)^SELECT\s", sql.lstrip()) or ";" in sql.strip().rstrip(";"):
         raise ValueError("Probe allows read-only SELECT queries only")
     req = urllib.request.Request(
         url,
