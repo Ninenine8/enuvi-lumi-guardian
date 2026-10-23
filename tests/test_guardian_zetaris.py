@@ -2,6 +2,7 @@
 import unittest
 from unittest.mock import patch
 from guardian_zetaris import parse_permissions, run_with_zetaris
+from zetaris_probe import query_zetaris
 
 REQUEST = {
     "run_id": "zetaris-test", "idempotency_key": "zetaris-test",
@@ -17,6 +18,23 @@ ALLOW_ROW = {
 
 
 class ZetarisAdapterTests(unittest.TestCase):
+    def test_multiline_select_sql_is_accepted(self):
+        with patch("urllib.request.urlopen") as mocked:
+            mocked.return_value.__enter__.return_value.read.return_value = (
+                b'{"records":[{"seven":7}]}'
+            )
+            result = query_zetaris("SELECT\\n  7 AS seven;", "synthetic-token")
+        self.assertEqual(result["records"][0]["seven"], 7)
+        request = mocked.call_args.args[0]
+        self.assertIn(b"SELECT\\n", request.data)
+
+    def test_non_select_and_multiple_statements_rejected(self):
+        for sql in ("CREATE TABLE x (n INT);",
+                    "SELECT 1; DELETE FROM x",
+                    "SELECTED 1"):
+            with self.assertRaises(ValueError):
+                query_zetaris(sql, "synthetic-token")
+
     def test_parse_valid(self):
         self.assertEqual(parse_permissions({"records": [ALLOW_ROW]})[0]["id"], "p-1")
 
