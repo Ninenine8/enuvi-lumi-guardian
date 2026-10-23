@@ -10,3 +10,15 @@ Zetaris proxy tested on user machine 23 October: `SELECT 7 AS seven` returned on
 6. New VIEW is a synthetic single-row data source, **not** production verification or identity. `verified=TRUE` is a simulated fixture field and does not prove anyone's real-world consent.
 
 Potential differences in result formatting, view DDL compatibility and full source provenance still need live user-machine validation. We must not claim the sponsor has been integrated completely until those tests pass.
+
+## 23 Oct intermediate workaround: live Zetaris query of INLINE synthetic sample
+
+The local SQL Workspace rejected `CREATE SCHEMASTORE CONTAINER ENUVI_DEMO;` with HTTP 400. It DID successfully execute a direct `SELECT` that generated fictional permission values. To unblock live API wiring without misrepresenting persistence, we added `examples/zetaris_inline_permissions.sql` and the explicit `--sql-file` switch:
+
+```powershell
+git pull --ff-only
+python -m unittest discover -s tests -v
+python guardian_zetaris.py --sql-file examples/zetaris_inline_permissions.sql --simulate PENDING
+```
+
+Expect Zetaris to execute the SELECT over the actual API, returning the invented row to Python. The local Python Guardian then evaluates it. This proves transport and policy integration **only**, not stored permission provenance. `source_mode: inline_sql_demo` marks this limitation in the output. Keep the VIEW path for the final proper data integration.
