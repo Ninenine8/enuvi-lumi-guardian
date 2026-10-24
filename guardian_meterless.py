@@ -49,7 +49,7 @@ def retrieve_hmem(query: str, *, runner=subprocess.run):
 
 
 def run_guardian_with_memory(request, token, sql, outcome="PENDING",
-                             ledger=None, hmem_retriever=retrieve_hmem):
+                             ledger=None, hmem_retriever=retrieve_hmem, *, advisor=None):
     """Memory affects reviewed context; Zetaris alone supplies scoped authority."""
     hmem = hmem_retriever(
         "verified daughter transfer contact memory consent new phone identity"
@@ -57,11 +57,12 @@ def run_guardian_with_memory(request, token, sql, outcome="PENDING",
     memories = hmem["memories"]
     out, ledger_out, events = run_with_zetaris(
         request, token, ledger=ledger, memories=memories,
-        simulated_outcome=outcome, sql=sql
+        simulated_outcome=outcome, sql=sql, advisor=advisor
     )
     out["memory_engine"] = hmem["engine"]
     out["memory_retrieval"] = hmem["retrieval"]
     out["memory_source_is_authority"] = False
+    out["source_mode"] = "inline_sql_demo"
     events.insert(0, {
         "kind": "meterless_hmem_retrieval",
         "source": hmem["engine"],
@@ -82,6 +83,7 @@ def main():
     ap.add_argument("--trace", default="logs/full_demo_trace.jsonl")
     ap.add_argument("--simulate", default="PENDING",
                     choices=("PENDING", "CONFIRMED", "TIMEOUT", "FAILED"))
+    ap.add_argument("--nemotron", action="store_true", help="Require live NVIDIA analyst and verifier")
     args = ap.parse_args()
     request = json.loads((ROOT / args.input).read_text(encoding="utf8"))
     sql = (ROOT / args.sql_file).read_text(encoding="utf8")
@@ -90,9 +92,14 @@ def main():
     token = os.environ.get("ZETARIS_API_TOKEN") or getpass.getpass(
         "Paste existing Zetaris token (hidden input): "
     )
+    advisor = None
+    if args.nemotron:
+        from guardian_nemotron import NemotronAdvisor
+        advisor = NemotronAdvisor(os.environ.get("NVIDIA_API_KEY") or getpass.getpass(
+            "NVIDIA API key (hidden input): "))
     try:
         out, ledger, events = run_guardian_with_memory(
-            request, token, sql, outcome=args.simulate, ledger=ledger
+            request, token, sql, outcome=args.simulate, ledger=ledger, advisor=advisor
         )
     except (FileNotFoundError, subprocess.CalledProcessError,
             subprocess.TimeoutExpired, json.JSONDecodeError, ValueError) as e:

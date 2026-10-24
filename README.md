@@ -1,6 +1,10 @@
 # ENUVI — Lumi Guardian
 
-**Status:** Private pre-hackathon baseline and preparation workspace. **No runnable Guardian agent or connected payment service is included in this snapshot.**
+**Status (24 October 2026):** Runnable synthetic Guardian core with Zetaris and official local Meterless H-MEM reference adapters, plus an optional NVIDIA Nemotron analyst and consistency verifier. All payments are simulated. The repository remains private pending publication review.
+
+Start with [Saturday run commands and evidence](docs/SATURDAY_NEMOTRON.md) and [Sunday recording / slides](docs/SUNDAY_DEMO.md). The original 25 Python tests and 18 new advisory tests pass. Seven deterministic scenario cases pass. These unit tests mock API boundaries; they do not establish live NVIDIA success.
+
+Friday evidence confirmed by the user: 25 Python tests, 10 official H-MEM tests, live local Zetaris probe, and a combined run ending ALLOW / UNKNOWN with eight audit events. Zetaris permissions currently come from an **inline synthetic SELECT**, not persistent authority records. Saturday: updated H-MEM test dependencies pass 10 official tests and a real local bridge retrieval, with npm audit reporting zero vulnerabilities in the isolated updated installation. Live NVIDIA and the new three-sponsor combined run still need private credentials and successful execution.
 
 Lumi Guardian is a proposed safety / authority layer for an AI companion. It distinguishes what an assistant can *access*, *disclose*, and *do*, with an explicit check for consequential actions and verified external outcomes.
 
@@ -31,14 +35,10 @@ An unresolved timeout / pending state must not be misreported as completion or r
 
 The documented **Test 4** exposed a failure: the model stated that a payment was processed without trusted service confirmation. A future working demo should use **synthetic users and simulated transactions**, demonstrate correct state tracking, and produce genuine execution traces. No real money transfers are intended.
 
-## Planned competition work (not implemented yet)
+## Implemented competition work and remaining work
 
-- Executable decision and policy-checking engine
-- Programmatic test entry point with structured input/output
-- Agent interaction and actual execution logs
-- Simulated tool adapter with authoritative outcome state, retries and timeouts
-- Sponsor integrations, subject to final published rules and access
-- Fresh-clone instructions, sample mode, evaluation and accessible demo
+- Implemented: deterministic scope/revocation checks, simulated outcome and duplicate protection, structured audit events, sponsor adapters, optional two-call Nemotron review, scenario runner.
+- Remaining: live NVIDIA evidence, complete combined run with the new review enabled, final publication/history review, 1–4 minute video, slides and Sunday submission.
 
 Any work undertaken in the **22–27 October 2026** build window should be clearly documented as new versus pre-existing. Verify the binding rules before submission.
 

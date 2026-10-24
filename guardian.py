@@ -59,7 +59,8 @@ def _policy(request, records, authenticated_actor):
 
 
 def run_guardian(request, authority_records, memory_records=None, ledger=None,
-                 authenticated_actor="demo-owner", simulated_outcome="PENDING"):
+                 authenticated_actor="demo-owner", simulated_outcome="PENDING",
+                 *, advisor=None):
     """Process one synthetic request; return structured output, ledger, events.
 
     simulated_outcome is a *host* parameter for the demo adapter, not a bank
@@ -86,11 +87,30 @@ def run_guardian(request, authority_records, memory_records=None, ledger=None,
     _event(events, "verifier", decision=decision, reason=reason,
            permission_ref=permission_ref, memory_grants_authority=False)
 
+    advisory = None
+    if advisor is not None:
+        try:
+            # Isolate model/adapter inputs from the authoritative request and ledger.
+            context = json.loads(json.dumps({"request": request, "memories": retrieved,
+                "gate": {"decision": decision, "permission_ref": permission_ref,
+                         "reason": reason}}))
+            advisory = advisor.review(context["request"], context["memories"], context["gate"])
+            _event(events, "nemotron_review", advisory=advisory, grants_authority=False)
+            if advisory.get("approved") is not True and decision == "ALLOW":
+                decision, reason = "BLOCK", "Advisory review did not approve; no transfer attempted"
+        except Exception:
+            # No raw errors: HTTP bodies may contain credentials or untrusted text.
+            advisory = {"approved": False, "status": "UNAVAILABLE_OR_INVALID"}
+            _event(events, "nemotron_review_failed", grants_authority=False)
+            decision, reason = "BLOCK", "Advisory unavailable or invalid; fail closed"
+
     base = {"run_id": run_id, "decision": decision, "reason": reason,
             "action_state": "NOT_APPLICABLE", "tool_confirmation_ref": None,
             "idempotency_key": key, "permission_ref": permission_ref,
             "memory_context": retrieved, "simulation": True,
             "safe_user_message": ""}
+    if advisory is not None:
+        base["advisory"] = advisory
     if decision != "ALLOW":
         base["safe_user_message"] = ("I cannot carry out this simulated transfer. "
                                      + reason + ".")

@@ -59,7 +59,7 @@ def parse_permissions(payload):
 
 def run_with_zetaris(request, token, ledger=None, memories=None,
                      authenticated_actor="demo-owner", simulated_outcome="PENDING",
-                     sql=DEFAULT_SQL):
+                     sql=DEFAULT_SQL, *, advisor=None):
     """Return (output, new_ledger, events); API unavailable means BLOCK, no tool."""
     try:
         response = query_zetaris(sql, token)
@@ -83,7 +83,8 @@ def run_with_zetaris(request, token, ledger=None, memories=None,
                  "simulated_tool_called": False}
         return out, {} if ledger is None else ledger, [event]
     out, new_ledger, events = run_guardian(
-        request, records, memories, ledger, authenticated_actor, simulated_outcome
+        request, records, memories, ledger, authenticated_actor, simulated_outcome,
+        advisor=advisor
     )
     out["authority_source"] = "zetaris"
     out["authority_query"] = sql

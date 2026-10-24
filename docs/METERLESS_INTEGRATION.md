@@ -11,6 +11,8 @@ npx --yes degit meterless/meterless/engines/hmem vendor/meterless-hmem
 npm --prefix .\vendor\meterless-hmem\reference install
 ```
 
+**Saturday security update:** the original Vitest dependency tree audited with nine vulnerabilities (two critical). Use the tested dependency overlay and locked reinstall in [SATURDAY_NEMOTRON.md](SATURDAY_NEMOTRON.md) after downloading the official source. Its updated install audited with zero vulnerabilities and passed all ten unchanged official tests plus the real bridge retrieval in the isolated Saturday checkout.
+
 This downloads the official [Meterless/Meterless H-MEM engine](https://github.com/Meterless/Meterless/tree/main/engines/hmem) and its original Apache-2.0 LICENSE into `vendor/meterless-hmem`, which is ignored in our Git repo. No custom copy is claimed as original. It may require working Node/npm and internet. This specific official reference is released under Apache-2.0; preserve the attribution and licence.
 
 To test official reference independently:
