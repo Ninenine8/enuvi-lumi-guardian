@@ -93,6 +93,8 @@ def run_guardian(request, authority_records, memory_records=None, ledger=None,
             # Isolate model/adapter inputs from the authoritative request and ledger.
             context = json.loads(json.dumps({"request": request, "memories": retrieved,
                 "gate": {"decision": decision, "permission_ref": permission_ref,
+                         "authenticated_actor": authenticated_actor,
+                         "authorized_action": action if decision == "ALLOW" else None,
                          "reason": reason}}))
             advisory = advisor.review(context["request"], context["memories"], context["gate"])
             _event(events, "nemotron_review", advisory=advisory, grants_authority=False)

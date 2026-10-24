@@ -8,7 +8,7 @@ Personal submission target: Sunday 25 October, within the four-hour session. No 
 
 The deterministic gate remains authoritative. An advisory veto can stop an otherwise allowed action; model ALLOW cannot bypass missing/revoked permissions, host identity, idempotency or tool-receipt rules. Invalid JSON, extra keys, invented citations, changed action, tool calls, truncation, API failure, or a completion claim fail closed before the fake provider runs. Model prose is never used as the completion message. The original path without `--nemotron` remains available.
 
-No new Python dependencies. NVIDIA endpoint/model contract: https://docs.api.nvidia.com/nim/reference/nvidia-nemotron-3-nano-30b-a3b-infer . Default model: `nvidia/nemotron-3-nano-30b-a3b`. If NVIDIA no longer offers it to your account, set `NVIDIA_MODEL` to an available NVIDIA Nemotron model; do not silently substitute another vendor.
+No new Python dependencies. NVIDIA endpoint/model contract: https://docs.api.nvidia.com/nim/reference/nvidia-nemotron-3-nano-30b-a3b-infer . Default model: `nvidia/nemotron-3.5-lightning-30b-a3b`. The earlier Nano route returned HTTP 410 in the live Saturday run. Short structured reviews now explicitly use `chat_template_kwargs.enable_thinking=false`: the Lightning analyst succeeded with thinking enabled, but the verifier exhausted the 4096-token budget on reasoning and returned no answer. Direct-answer mode retains separate analyst/verifier calls and all strict validation. Live success after this fix is still pending. If NVIDIA no longer offers it to your account, set `NVIDIA_MODEL` to an available NVIDIA Nemotron model; do not silently substitute another vendor.
 
 ## Cursor terminal in the existing repository
 
@@ -81,3 +81,7 @@ The npm lockfile records public registry URLs and integrity hashes. Repeat audit
 ## Publication review before changing visibility
 
 Review tracked content **and Git history** for credentials, private records, logs and large media. Rotate any credential ever committed. Confirm ignored vendor and logs are not tracked. Review the draft PR and the tested dependency overlay. Verify all claims against actual logs; leave unavailable evidence marked pending. Keep pre-existing v0.4 disclosure. Make GitHub public deliberately only after this review, then check unauthenticated access. No repository visibility change is included in this increment.
+
+## Saturday localhost proxy diagnosis
+
+The browser SQL query succeeded while the Python probe timed out. Setting `$env:NO_PROXY = "127.0.0.1,localhost," + $env:NO_PROXY` in the Cursor terminal made the live `SELECT 7 AS seven` probe pass. Keep this setting in the terminal used for the combined run. It does not disable TLS verification or bypass proxies for NVIDIA.

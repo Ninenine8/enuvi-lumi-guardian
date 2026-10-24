@@ -46,6 +46,13 @@ class NemotronTests(unittest.TestCase):
     def test_two_separate_reviews_then_pending_is_unknown(self):
         out, _, events, bodies = self.run_review()
         self.assertEqual(len(bodies), 2)
+        for body in bodies:
+            self.assertEqual(body["chat_template_kwargs"], {"enable_thinking": False})
+            self.assertEqual(body["model"], "nvidia/nemotron-3.5-lightning-30b-a3b")
+            context = json.loads(body["messages"][1]["content"])
+            self.assertEqual(context["deterministic_gate"]["authenticated_actor"], "demo-owner")
+            self.assertEqual(context["deterministic_gate"]["authorized_action"], BASE["action"])
+            self.assertIn("source", context["memory_context"][0])
         self.assertEqual(out["decision"], "ALLOW")
         self.assertEqual(out["action_state"], "UNKNOWN")
         self.assertIsNone(out["tool_confirmation_ref"])
@@ -79,7 +86,11 @@ class NemotronTests(unittest.TestCase):
         self.assert_no_tool(events)
 
     def test_fake_daughter_host_identity_cannot_be_overridden(self):
-        out, _, events, _ = self.run_review(authenticated_actor="new-number-claiming-daughter")
+        out, _, events, bodies = self.run_review(authenticated_actor="new-number-claiming-daughter")
+        for body in bodies:
+            gate = json.loads(body["messages"][1]["content"])["deterministic_gate"]
+            self.assertEqual(gate["authenticated_actor"], "new-number-claiming-daughter")
+            self.assertIsNone(gate["authorized_action"])
         self.assertEqual(out["decision"], "BLOCK")
         self.assert_no_tool(events)
 
