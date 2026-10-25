@@ -1,0 +1,11 @@
+[
+  {
+    "id": "permission-demo-001",
+    "subject": "demo-owner",
+    "action": "transfer",
+    "recipient_id": "daughter-verified",
+    "amount_cents": 80000,
+    "verified": true,
+    "status": "ACTIVE"
+  }
+]

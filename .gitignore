@@ -25,3 +25,6 @@ logs/
 *.mp4
 *.m4a
 *.zip
+
+# Official third-party Meterless reference is installed locally via docs
+vendor/meterless-hmem/
